@@ -26,7 +26,8 @@
 ;;
 (defonce system (new-system {}))
 
-(alter-var-root #'*out* (constantly *out*))
+
+#_(alter-var-root #'*out* (constantly *out*))
 
 (defn start-system! []
   (let [sys (alter-var-root #'system c/start)]

@@ -28,29 +28,21 @@
 
   (POST "/logout" request
 
-        )
+        ))
 
-  (GET "/jatta" request
-       (do
-         (println request)
-         (html5
-          [:head
-           [:title "Welcome to lein"]
-           (include-css "/css/style.css")]
-          [:body
-           "Was loaded"           
-           (include-js "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js")
-           ])))
-
-  (defn- wrap-object [f k m]
-    (fn [req] (f (assoc req k m)))))
+(defn- wrap-object [f k m]
+  "returns a chainhandler that assocs a key and value to a request"
+  (fn [req] (f (assoc req k m))))
 
 (defn- make-handler [webapp]
   (do
     (-> #'api-routes
-     (wrap-object ::web-app webapp)
-     (wrap-defaults
-      (assoc-in site-defaults [:security :anti-forgery] false)))))
+        ;;
+        ;; Injecting webapplication into request map
+        ;;
+        (wrap-object ::web-app webapp)
+        (wrap-defaults
+         (assoc-in site-defaults [:security :anti-forgery] false)))))
 
 (defrecord WebServer [webapp config jetty]
   c/Lifecycle
@@ -66,10 +58,6 @@
 ;; TODO: destructor config keys
 (defn new-webserver [config]
   (map->WebServer {:config config}))
-
-
-
-
 
 
 
