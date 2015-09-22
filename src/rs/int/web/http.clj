@@ -23,7 +23,7 @@
         ;; create a user cookie and add to
         ;; response
         ;;
-        (response "ok"))
+        (assoc (response "ok") :session {:count 0}))
 
 
   (POST "/logout" request

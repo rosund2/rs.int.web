@@ -15,6 +15,7 @@
                [cider/cider-nrepl "0.9.1"]]
   
      :source-paths ["src/" "src-cljs/"]
+
   
      :cljsbuild {:builds {:system {:source-paths ["src" "src-cljs"]
                                    ;;:figwheel { :on-jsload "system.client.test/on-js-reload" }
@@ -28,7 +29,12 @@
      ;;[:base :system :user :provided :dev]
      ;;
      :profiles {:provided {:dependencies [[org.clojure/clojurescript "1.7.10"]
-                                          [org.omcljs/om "0.8.8"]]}}
+                                          [org.omcljs/om "0.8.8"]]}
+                :dev {:source-paths ["dev"]}}
   
-     :clean-targets ^{:protect false} ["resources/public/out"])
+     :clean-targets ^{:protect false} ["resources/public/out"]
+
+     ;; Plan to add injections of pprint ie here. 
+     ;;:user {:injections []}
+     )
 
